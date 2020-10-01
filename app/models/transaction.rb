@@ -7,9 +7,15 @@ class Transaction < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than => 0
 
   scope :for_household, lambda { |h| where(:household_id => h).order("id DESC") }
-  scope :investments, :conditions => { :credit => true }
-  scope :purchases, :conditions => { :credit => false }
-  scope :this_week, :conditions => ['created_at > ?', 7.days.ago]
+  #scope :investments, :conditions => { :credit => true }
+  #scope :investments, lambda {{ :conditions => { :credit => true } }}
+  scope :investments, -> { where( :credit => true ) }
+  #scope :purchases, :conditions => { :credit => false }
+  #scope :purchases, lambda {{ :conditions => { :credit => false } }}
+  scope :purchases, -> {where( :credit => false)}
+  #scope :this_week, :conditions => ['created_at > ?', 7.days.ago]
+  #scope :this_week, lambda {{ :conditions => ['created_at > ?', 7.days.ago] }}
+  scope :this_week, -> { where( "created_at > ?", 7.days.ago ) }
 
   # attr_readonly allows you to change attr values of the model, but these changes won't be saved to the DB
   # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2132-confusing-behavior-with-attr_readonly#ticket-2132-14

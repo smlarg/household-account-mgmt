@@ -85,7 +85,7 @@ describe Household do
 
     describe "when given then empty string" do
       subject { Household.find_by_keywords("") }
-      it { is_expected.to include(@samanthas_house) }
+      it { expect(subject).to include(@samanthas_house) }
       it { is_expected.to include(@joe_and_sams_house) }
     end
 

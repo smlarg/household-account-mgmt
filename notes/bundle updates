@@ -1,0 +1,9 @@
+bundle update rake
+bundle update pry
+bundle update capybara
+bundle update cucumber-rails
+bundle update newrelic-rpm
+bundle update database-cleaner
+bundle update will_paginate
+bundle update protected_attributes
+bundle update factory_girl_rails
