@@ -15,7 +15,8 @@ describe TransactionsController do
 
   def mock_transaction(stubs={})
     (@mock_transaction ||= mock_model(Transaction).as_null_object).tap do |transaction|
-      allow(transaction).to receive(stubs) unless stubs.empty?
+      #allow(transaction).to receive(stubs) unless stubs.empty?
+      transaction.stub(stubs) unless stubs.empty?
     end
   end
 
