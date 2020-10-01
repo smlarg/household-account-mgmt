@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 ruby "2.1.2"
 
 gem 'rails', '~>3.2.0'
+gem 'rake', '<11.0'
 gem 'will_paginate'
 gem 'newrelic_rpm'
 
@@ -44,7 +45,7 @@ gem 'exception_notification'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~>2.14'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'

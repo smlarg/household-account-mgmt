@@ -8,7 +8,7 @@ describe MembersController do
   describe "index" do
     it "should allow csv download" do
       get :index, :format => :csv
-      response.should be_success
+      expect(response).to be_success
     end
   end
 

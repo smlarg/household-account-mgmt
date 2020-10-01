@@ -9,8 +9,8 @@ describe HouseholdMembershipAudit do
   end
 
   it "should create an initial 'join' audit for new household membership " do
-    @member.household_membership_audits.count.should == 1
-    @member.household_membership_audits[0].household.should == @original_household
+    expect(@member.household_membership_audits.count).to eq(1)
+    expect(@member.household_membership_audits[0].household).to eq(@original_household)
   end
 
   describe "it should audit household moves" do
@@ -21,7 +21,7 @@ describe HouseholdMembershipAudit do
     end
 
     it "should create 2 new audits" do
-      @member.household_membership_audits.count.should == 3
+      expect(@member.household_membership_audits.count).to eq(3)
     end
 
 

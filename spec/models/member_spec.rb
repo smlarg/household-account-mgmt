@@ -12,18 +12,18 @@ describe Member do
       m = FactoryGirl.build(:member)
       m.household = household
       m.save!
-      m.household.should == household
+      expect(m.household).to eq(household)
 
       #reload household to verify relation persisted in DB
       db_household = Household.find(household.id)
-      db_household.members.should include m
+      expect(db_household.members).to include m
     end
 
     it "should have a new household assigned on creation if one wasn't specified" do
       m = FactoryGirl.build(:member)
       m.save!
-      m.household.should_not be_nil
-      m.household.members.should == [m]
+      expect(m.household).not_to be_nil
+      expect(m.household.members).to eq([m])
     end
 
     describe "changing households" do
@@ -32,14 +32,14 @@ describe Member do
       it "should not allow last member to leave household with outstanding balance" do
         m.household.transactions.create(amount: 5, credit: true)
         m.household= @household
-        m.should_not be_valid
+        expect(m).not_to be_valid
       end
 
       it "should allow last member to leave household with no outstanding balance" do
         m.household.transactions.create(amount: 5, credit: true)
         m.household.transactions.create(amount: 5, credit: false)
         m.household= @household
-        m.should be_valid
+        expect(m).to be_valid
       end
 
     end
@@ -61,70 +61,70 @@ describe Member do
 
     describe "when given then empty string" do
       subject { Member.find_by_keywords("") }
-      it { should include(@samantha_pierce) }
-      it { should include(@joseph) }
-      it { should include(@sam) }
+      it { is_expected.to include(@samantha_pierce) }
+      it { is_expected.to include(@joseph) }
+      it { is_expected.to include(@sam) }
     end
 
     describe "member's name matches exactly" do
       subject { Member.find_by_keywords("Samantha") }
-      it { should include(@samantha_pierce) }
-      it { should_not include(@joseph) }
-      it { should_not include(@sam) }
+      it { is_expected.to include(@samantha_pierce) }
+      it { is_expected.not_to include(@joseph) }
+      it { is_expected.not_to include(@sam) }
     end
 
     describe "member's name matches partially" do
       subject { Member.find_by_keywords("Jos") }
-      it { should include(@joseph) }
-      it { should_not include(@samantha_pierce) }
-      it { should_not include(@sam) }
+      it { is_expected.to include(@joseph) }
+      it { is_expected.not_to include(@samantha_pierce) }
+      it { is_expected.not_to include(@sam) }
     end
 
     describe "name matches multiple households" do
       subject { Member.find_by_keywords("Sam") }
-      it { should include(@samantha_pierce) }
-      it { should include(@sam) }
-      it { should_not include(@joseph) }
+      it { is_expected.to include(@samantha_pierce) }
+      it { is_expected.to include(@sam) }
+      it { is_expected.not_to include(@joseph) }
     end
 
     describe "when name matches, but with different caps" do
       subject { Member.find_by_keywords("sam") }
-      it { should include(@samantha_pierce) }
-      it { should include(@sam) }
-      it { should_not include(@joseph) }
+      it { is_expected.to include(@samantha_pierce) }
+      it { is_expected.to include(@sam) }
+      it { is_expected.not_to include(@joseph) }
     end
 
     describe "when last name is matched" do
       subject { Member.find_by_keywords("Pierce") }
-      it { should include(@samantha_pierce) }
-      it { should_not include(@joseph) }
-      it { should_not include(@sam) }
+      it { is_expected.to include(@samantha_pierce) }
+      it { is_expected.not_to include(@joseph) }
+      it { is_expected.not_to include(@sam) }
     end
 
     describe "with mulitple keywords" do
 
       describe "when we're specifying first and last name" do
         subject { Member.find_by_keywords("sam pierce") }
-        it { should include(@samantha_pierce) }
-        it { should include(@sam) }
-        it { should_not include(@joseph) }
+        it { is_expected.to include(@samantha_pierce) }
+        it { is_expected.to include(@sam) }
+        it { is_expected.not_to include(@joseph) }
         it "shouldn't include a member multiple times" do
-          subject.length.should == 2
+          expect(subject.length).to eq(2)
         end
       end
 
       describe "when we're specifiying multiple first names" do
         subject { Member.find_by_keywords("Sam Joseph") }
-        it { should include(@samantha_pierce) }
-        it { should include(@sam) }
-        it { should include(@joseph) }
+        it { is_expected.to include(@samantha_pierce) }
+        it { is_expected.to include(@sam) }
+        it { is_expected.to include(@joseph) }
       end
 
       describe "when there's a period in it" do
         subject { Member.find_by_keywords("st. john") }
-        it { should include @sam }
-        it { should_not include @samantha_pierce }
-        it { should_not include @joseph }
+        it { is_expected.to include @sam }
+        it { is_expected.not_to include @samantha_pierce }
+        it { is_expected.not_to include @joseph }
       end
     end
 
@@ -146,26 +146,26 @@ describe Member do
     context "when searching for active only" do
       let(:include_active) { true }
       let(:include_inactive) { nil }
-      it { should include @active_member }
-      it { should_not include @inactive_member }
+      it { is_expected.to include @active_member }
+      it { is_expected.not_to include @inactive_member }
     end
     context "when searching for inactive only" do
       let(:include_active) { nil }
       let(:include_inactive) { true }
-      it { should include @inactive_member }
-      it { should_not include @active_member }
+      it { is_expected.to include @inactive_member }
+      it { is_expected.not_to include @active_member }
     end
     context "when searching for both" do
       let(:include_active) { true }
       let(:include_inactive) { true }
-      it { should include @active_member }
-      it { should include @active_member }
+      it { is_expected.to include @active_member }
+      it { is_expected.to include @active_member }
     end
     context "when searching for neither" do
       let(:include_active) { nil }
       let(:include_inactive) { nil }
-      it { should include @active_member }
-      it { should include @active_member }
+      it { is_expected.to include @active_member }
+      it { is_expected.to include @active_member }
     end
   end
 

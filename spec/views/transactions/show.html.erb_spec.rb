@@ -15,12 +15,12 @@ describe "transactions/show.html.erb" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/9.99/)
+    expect(rendered).to match(/9.99/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/purchase/i)
+    expect(rendered).to match(/purchase/i)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Message/)
+    expect(rendered).to match(/Message/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    expect(rendered).to match(/1/)
   end
 end

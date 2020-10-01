@@ -11,16 +11,16 @@ describe "Transactions" do
     it "works!" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       get all_transactions_url
-      response.status.should be(200)
+      expect(response.status).to be(200)
     end
   end
   describe "GET /household/1/transactions" do
     it "works!" do
       household = FactoryGirl.create(:household)
-      Household.should_receive(:find).with("1").and_return { household }
+      expect(Household).to receive(:find).with("1") { household }
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       get household_transactions_url(:household_id => 1)
-      response.status.should be(200)
+      expect(response.status).to be(200)
     end
   end
 

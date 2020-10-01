@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Household do
   it "should default to a $0.00 balance" do
-    Household.create!.balance.should == 0
+    expect(Household.create!.balance).to eq(0)
   end
 
   describe "#credit!" do
@@ -13,11 +13,11 @@ describe Household do
     it "should add the amount of credit to balance" do
       balance = @household.balance
       @household.credit!(BigDecimal.new("5"))
-      @household.balance.should == balance + 5
+      expect(@household.balance).to eq(balance + 5)
     end
 
     it "should not allow credits <= 0" do
-      lambda { @household.credit!(BigDecimal.new("-5")) }.should raise_error(ActiveRecord::RecordInvalid)
+      expect { @household.credit!(BigDecimal.new("-5")) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -29,11 +29,11 @@ describe Household do
     it "should subtract the amount of debit to balance" do
       balance = @household.balance
       @household.debit!(BigDecimal.new("5"))
-      @household.balance.should == balance - 5
+      expect(@household.balance).to eq(balance - 5)
     end
 
     it "should not allow debits <= 0" do
-      lambda { @household.debit!(BigDecimal.new("-5")) }.should raise_error(ActiveRecord::RecordInvalid)
+      expect { @household.debit!(BigDecimal.new("-5")) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -44,11 +44,11 @@ describe Household do
     context "with a couple transactions" do
       let!(:first_transaction) { FactoryGirl.create(:purchase, household: household) }
       let!(:second_transaction) { FactoryGirl.create(:purchase, household: household) }
-      it { should == second_transaction }
+      it { is_expected.to eq(second_transaction) }
     end
   end
 
-  pending "should be impossible to change balance without creating a transaction"
+  skip "should be impossible to change balance without creating a transaction"
 
   describe ".by_recent_activity" do
     subject { Household.by_recent_activity }
@@ -63,7 +63,7 @@ describe Household do
       FactoryGirl.create(:purchase).household
     end
 
-    it { should == [saw_this_household_just_now, saw_this_household_a_bit_ago] }
+    it { is_expected.to eq([saw_this_household_just_now, saw_this_household_a_bit_ago]) }
   end
 
   describe ".find_by_keywords" do
@@ -85,45 +85,45 @@ describe Household do
 
     describe "when given then empty string" do
       subject { Household.find_by_keywords("") }
-      it { should include(@samanthas_house) }
-      it { should include(@joe_and_sams_house) }
+      it { is_expected.to include(@samanthas_house) }
+      it { is_expected.to include(@joe_and_sams_house) }
     end
 
     describe "member's name matches exactly" do
       subject { Household.find_by_keywords("Samantha") }
-      it { should include(@samanthas_house) }
-      it { should_not include(@joe_and_sams_house) }
+      it { is_expected.to include(@samanthas_house) }
+      it { is_expected.not_to include(@joe_and_sams_house) }
     end
 
     describe "member's name matches partially" do
       subject { Household.find_by_keywords("Jos") }
-      it { should include(@joe_and_sams_house) }
-      it { should_not include(@samanthas_house) }
+      it { is_expected.to include(@joe_and_sams_house) }
+      it { is_expected.not_to include(@samanthas_house) }
     end
 
     describe "name matches multiple households" do
       subject { Household.find_by_keywords("Sam") }
-      it { should include(@samanthas_house) }
-      it { should include(@joe_and_sams_house) }
+      it { is_expected.to include(@samanthas_house) }
+      it { is_expected.to include(@joe_and_sams_house) }
     end
 
     describe "when name matches, but with different caps" do
       subject { Household.find_by_keywords("sam") }
-      it { should include(@samanthas_house) }
-      it { should include(@joe_and_sams_house) }
+      it { is_expected.to include(@samanthas_house) }
+      it { is_expected.to include(@joe_and_sams_house) }
     end
 
     describe "when last name is matched" do
       subject { Household.find_by_keywords("Pierce") }
-      it { should include(@samanthas_house) }
-      it { should_not include(@joe_and_sams_house) }
+      it { is_expected.to include(@samanthas_house) }
+      it { is_expected.not_to include(@joe_and_sams_house) }
     end
 
     describe "searching active households" do
       let(:inactive_member) { FactoryGirl.create(:member, :active => false) }
       describe "using an inactive household's member name" do
         let(:scope) { Household.active.find_by_keywords(inactive_member.first_name) }
-        it { scope.should be_empty }
+        it { expect(scope).to be_empty }
       end
     end
 
@@ -131,14 +131,14 @@ describe Household do
 
       describe "when we're specifying first and last name" do
         subject { Household.find_by_keywords("sam pierce") }
-        it { should include(@samanthas_house) }
-        it { should include(@joe_and_sams_house) }
+        it { is_expected.to include(@samanthas_house) }
+        it { is_expected.to include(@joe_and_sams_house) }
       end
 
       describe "when we're specifiying multiple first names" do
         subject { Household.find_by_keywords("Sam Joseph") }
-        it { should include(@samanthas_house) }
-        it { should include(@joe_and_sams_house) }
+        it { is_expected.to include(@samanthas_house) }
+        it { is_expected.to include(@joe_and_sams_house) }
       end
     end
   end
