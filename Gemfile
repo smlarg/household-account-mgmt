@@ -45,8 +45,8 @@ gem 'exception_notification'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'rspec-rails', '~>2.14'
- gem 'rspec-activemodel-mocks'
+  gem 'rspec-rails', '~>3.0'
+  gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'

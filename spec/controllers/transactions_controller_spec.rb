@@ -16,6 +16,7 @@ describe TransactionsController do
   def mock_transaction(stubs={})
     (@mock_transaction ||= mock_model(Transaction).as_null_object).tap do |transaction|
       #allow(transaction).to receive(stubs) unless stubs.empty?
+      #transaction.stub(stubs) unless stubs.empty?
       transaction.stub(stubs) unless stubs.empty?
     end
   end
@@ -103,7 +104,7 @@ describe TransactionsController do
 
     describe "with valid params" do
       it "updates the requested transaction" do
-        Transaction.stub_chain(:for_household, :find) { mock_transaction }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction }
         # how to do msg expectations with chained methods like this? instead of the above stub
         # Transaction.should_receive(:for_household).with("1").should_receive(:find).with("37") { mock_transaction }
         # Something like this? Is that even useful?
@@ -114,13 +115,13 @@ describe TransactionsController do
       end
 
       it "assigns the requested transaction as @transaction" do
-        Transaction.stub_chain(:for_household, :find) { mock_transaction(:update_attributes => true) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => true) }
         put :update, {:id => "1", :household_id => 1}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
 
       it "redirects to the households transactions" do
-        Transaction.stub_chain(:for_household, :find) { mock_transaction(:update_attributes => true, :household_id => 2) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => true, :household_id => 2) }
         put :update, {:id => "1", :household_id => 1}
         expect(response).to redirect_to(household_transaction_url(:household_id => 1, :id => mock_transaction))
       end
@@ -128,13 +129,13 @@ describe TransactionsController do
 
     describe "with invalid params" do
       it "assigns the transaction as @transaction" do
-        Transaction.stub_chain(:for_household, :find) { mock_transaction(:update_attributes => false) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => false) }
         put :update, {:id => "1", :household_id => 1}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
 
       it "re-renders the 'edit' template" do
-        Transaction.stub_chain(:for_household, :find) { mock_transaction(:update_attributes => false) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => false) }
         put :update, {:id => "1", :household_id => 1}
         expect(response).to render_template("edit")
       end
