@@ -7,7 +7,9 @@ describe Transaction do
 
   it "should not allow negative amount" do
     t = Transaction.new(:amount => -1.20)
-    expect(t).to have(1).error_on(:amount)
+    #expect(t).to have(1).error_on(:amount)
+    t.valid?
+    expect(t.errors[:amount].size).to eq(1)
   end
 
   describe ".total_balance" do
