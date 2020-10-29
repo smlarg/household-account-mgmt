@@ -9,3 +9,5 @@ tags
 .redcar/
 *.dump
 .vagrant
+
+*.sublime-workspace

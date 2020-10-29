@@ -1,10 +1,14 @@
 class Member < ActiveRecord::Base
   belongs_to :household
   has_many :household_membership_audits
-
-  scope :with_households, :include => [{:household => :members}]
-
-  scope :by_activity, lambda { |params|
+  
+  # I'm still having trouble parsing it totally, but I believe this is a search which returns all members who belong to a household
+  # Which, in general, is all members, because households are created at save by before_validation
+  #scope :with_households, :include => [{:household => :members}]
+  scope :with_households, -> { includes([{:household => :members}]) }
+    
+ #scope :by_activity, lambda { |params|
+  scope :by_activity, ->(params) {
     include_active = params[:include_active]
     include_inactive = params[:include_inactive]
 

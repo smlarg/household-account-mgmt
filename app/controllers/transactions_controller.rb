@@ -53,8 +53,10 @@ class TransactionsController < ApplicationController
   # POST /households/:id/transactions
   # POST /households/:id/transactions.xml
   def create
-    @transaction = Transaction.for_household(params[:household_id]).new(params[:transaction])
-
+    #@transaction = Transaction.for_household(params[:household_id]).new(params[:transaction])
+    #@transaction = Transaction.for_household(household_params).new(transaction_params)
+    @transaction = Transaction.for_household(params[:household_id]).new(who_knows)
+    
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to(@household, :notice => 'Household transaction was successfully created.') }
@@ -70,9 +72,11 @@ class TransactionsController < ApplicationController
   # PUT /households/:id/transactions/1.xml
   def update
     @transaction = Transaction.for_household(params[:household_id]).find(params[:id])
+    #@transaction = Transaction.for_household(household_params).find(household_params)
 
     respond_to do |format|
-      if @transaction.update_attributes(params[:transaction])
+      #if @transaction.update_attributes(params[:transaction])
+      if @transaction.update_attributes(who_knows)
         format.html { redirect_to(household_transaction_url(@household, @transaction), :notice => 'Household transaction was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -94,4 +98,30 @@ class TransactionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+    
+    #def household_params
+    #  params.permit(:household_id, :id)
+    #end
+    
+    def transaction_params
+      params.permit(:transaction).permit(:credit, :amount, :message, :void, :these)
+      #params.permit(:transaction).permit(:credit, :amount, :message, :void, :these)
+    end
+    
+    def transaction_params_req
+      params.require(:transaction).permit(:credit, :amount, :message, :void, :these)
+      #params.permit(:transaction).permit(:credit, :amount, :message, :void, :these)
+    end
+    
+    def who_knows
+      if params.has_key?(:transaction) and not params[:transaction].empty? #this has become insane, but it works maybe?
+        params.require(:transaction).permit(:credit, :amount, :message, :void, :these)
+      else
+        {}
+      end
+    end
+        
+    
 end

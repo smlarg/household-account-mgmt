@@ -7,7 +7,8 @@ class MembersController < ApplicationController
     if params[:search]
       @members = @members.find_by_keywords(params[:search])
     else
-      @members = @members.with_households.all
+      #@members = @members.with_households.all
+      @members = @members.with_households
     end
 
     respond_to do |format|
@@ -47,8 +48,9 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.xml
   def create
-    @member = Member.new(params[:member])
-
+    #@member = Member.new(params[:member])
+    @member = Member.new(member_params)
+    
     respond_to do |format|
       if @member.save
         format.html { redirect_to(@member, :notice => 'Member was successfully created.') }
@@ -66,7 +68,8 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
 
     respond_to do |format|
-      if @member.update_attributes(params[:member])
+      #if @member.update_attributes(params[:member])
+      if @member.update_attributes(member_params)
         format.html { redirect_to(@member, :notice => 'Member was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -87,4 +90,11 @@ class MembersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+    
+    def member_params
+      params.require(:member).permit(:last_name, :first_name, :active, :email, :phone1, :phone2, :address1, :address2, :city, :state, :zip, :household_id)
+    end
+  
 end
