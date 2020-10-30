@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_filter :except => :all_households do
+  before_action :except => :all_households do
      @household = Household.find(params[:household_id])
   end
 
@@ -55,7 +55,9 @@ class TransactionsController < ApplicationController
   def create
     #@transaction = Transaction.for_household(params[:household_id]).new(params[:transaction])
     #@transaction = Transaction.for_household(household_params).new(transaction_params)
-    @transaction = Transaction.for_household(params[:household_id]).new(who_knows)
+    @transaction = Transaction.for_household(params[:household_id]).new(who_knows.to_h)
+    # I have no idea why I had to do .to_h here, but no where else, but rails5.0 says rails5.1 won't allow otherwise
+    # (It seems unrelated to the sketch below, because it showed up with all other iterations)
     
     respond_to do |format|
       if @transaction.save
@@ -105,7 +107,7 @@ class TransactionsController < ApplicationController
     #  params.permit(:household_id, :id)
     #end
     
-    def transaction_params
+    def transaction_params_per
       params.permit(:transaction).permit(:credit, :amount, :message, :void, :these)
       #params.permit(:transaction).permit(:credit, :amount, :message, :void, :these)
     end

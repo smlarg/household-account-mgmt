@@ -1,4 +1,4 @@
-class Household < ActiveRecord::Base
+class Household < ApplicationRecord
   has_many :members
   has_many :transactions
   has_many :household_membership_audits

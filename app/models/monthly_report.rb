@@ -1,4 +1,4 @@
-class MonthlyReport < ActiveRecord::Base
+class MonthlyReport < ApplicationRecord
   MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
   def time_period

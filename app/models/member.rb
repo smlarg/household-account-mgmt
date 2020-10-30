@@ -1,4 +1,4 @@
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   belongs_to :household
   has_many :household_membership_audits
   

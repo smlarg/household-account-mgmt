@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe HouseholdsController do
   before do
-    controller.class.skip_before_filter :authenticate_user!
+    controller.class.skip_before_action :authenticate_user!, raise: false
   end
 
   describe "index" do

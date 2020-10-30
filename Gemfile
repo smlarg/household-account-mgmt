@@ -2,14 +2,14 @@ source 'http://rubygems.org'
 
 ruby "2.3.8"
 
-gem 'rails', '~>4.0'
-gem 'protected_attributes'
+gem 'rails', '~>5.0.0'
+#gem 'protected_attributes'
 gem 'rake'
 gem 'will_paginate'
 gem 'newrelic_rpm'
 
 # for postgres
-gem 'pg'
+gem 'pg', '~>0.18.0'
 
 # for authentication
 gem 'devise'
@@ -26,6 +26,9 @@ gem 'comma'
 
 # send email when an exception occurs
 gem 'exception_notification'
+
+# After upgrading to 5.0 I was told to put this in, for assigns
+gem 'rails-controller-testing'
 
 # Use unicorn as the web server
 # gem 'unicorn'

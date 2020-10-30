@@ -1,4 +1,4 @@
-class HouseholdMembershipAudit < ActiveRecord::Base
+class HouseholdMembershipAudit < ApplicationRecord
   belongs_to :household
   belongs_to :member
 

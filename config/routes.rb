@@ -2,6 +2,11 @@ Foodlobby::Application.routes.draw do
   root :to => "households#index"
 
   devise_for :users
+  
+  # I can't delete:destroy to this path, I don't know why
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'     
+  end
 
   resources :members
 

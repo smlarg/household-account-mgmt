@@ -82,3 +82,32 @@ gem install bundler -v "<2" -N
 bundle install
 
 # git commit -m Ruby 2.3.8
+
+# Hmm, I added protected_attributes to the Gemfile and that is my problem.
+# Why did I add protected_attributes to the Gemfile?
+# ah ha, https://github.com/rails/protected_attributes , for `attr_accessible`
+# Remove protected_attributes and add 'rails', '~>5.0.0'
+# pg doesn't load! Hmm.
+
+# gem 'pg', '~>0.18.0'
+bundle update pg
+# edit user model to remove attr_accessible
+# (It's just commented out, what was it doing? It's not doing it anymore.)
+
+# before_action became before_filter, or the other way, who cares
+
+# None of the specs seem to be able to hit authenticate_user!, so complain when it's skipped
+# I just put `raise: false` (via below) but that doesn't seem like the best
+# https://stackoverflow.com/questions/41266207/rails-before-process-action-callback-authenticate-user-has-not-been-defined
+
+# Also in specs, I had to add params: a bunch of times (a few times passing an empty hash)
+
+# I had to add .to_h to the transaction create method, not clear why
+
+# .csv is complaining about accessing mime types, but not in a way that is helpful, so I'm leaving it
+# (And household.xml isn't working, but maybe it never was)
+
+# I can only seem to access the signout url via gets (method: :delete doesn't work) so I added a get route
+# https://stackoverflow.com/a/30095074
+# (No I do not know what I did, why it's devise_scope or user is singular)
+# (Note this didn't cause any tests to fail, so, there's I guess no test for that)
