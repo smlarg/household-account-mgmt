@@ -31,3 +31,9 @@ bundle install
 # git commit -m FactoryBot
 # no bundle updates for Ruby 2.3.8
 # git commit -m Ruby 2.3.8
+
+# forgot to write these down
+bundle update rails # ~>5.0.0
+bundle update pg # ~>18.0
+bundle update rails # ~>5.10
+bundle update comma

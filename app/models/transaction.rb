@@ -28,8 +28,10 @@ class Transaction < ApplicationRecord
   end
   
   after_save do |t|
-    void_transaction if t.void? && !t.void_was
-    apply_transaction if !t.void? && t.void_was
+    # The deprication warning (rails5.1) told me to change this from _was to _before_last_save
+    # I'm hoping the unit tests have verrified that is in fact correct
+    void_transaction if t.void? && !t.void_before_last_save
+    apply_transaction if !t.void? && t.void_before_last_save
   end
 
   def void_transaction

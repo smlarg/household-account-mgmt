@@ -61,7 +61,7 @@ bundle exec rake cumcumber
 # also drops the view; so I guess it's something about how rake runs cucumber?
 # just going with it for now
 
-# git commit -m Rails 4.2
+git commit -m Rails 4.2
 
 # now factoryGirl
 grep -e FactoryGirl -r . -l | grep -e ".*\.rb$" | xargs sed -i "" "s|FactoryGirl|FactoryBot|" # in os x
@@ -70,7 +70,7 @@ grep -e FactoryGirl -r . -l | grep -e ".*\.rb$" | xargs sed -i "" "s|FactoryGirl
 
 # create config/secrets.yml, I left notes there how I kludged it together
 
-# git commit -m FactoryBot
+git commit -m FactoryBot
 
 # Can't seem to upgrade past rails 4.2 with ruby 2.2.X
 # So, 2.3.8
@@ -81,16 +81,20 @@ RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/lib/ssl1.0/" rbenv install
 gem install bundler -v "<2" -N
 bundle install
 
-# git commit -m Ruby 2.3.8
+git commit -m Ruby 2.3.8
+
+# add 'rails', '~>5.0.0'
 
 # Hmm, I added protected_attributes to the Gemfile and that is my problem.
 # Why did I add protected_attributes to the Gemfile?
 # ah ha, https://github.com/rails/protected_attributes , for `attr_accessible`
-# Remove protected_attributes and add 'rails', '~>5.0.0'
+# Remove protected_attributes
+bundle update rails
 # pg doesn't load! Hmm.
 
 # gem 'pg', '~>0.18.0'
 bundle update pg
+
 # edit user model to remove attr_accessible
 # (It's just commented out, what was it doing? It's not doing it anymore.)
 
@@ -111,3 +115,20 @@ bundle update pg
 # https://stackoverflow.com/a/30095074
 # (No I do not know what I did, why it's devise_scope or user is singular)
 # (Note this didn't cause any tests to fail, so, there's I guess no test for that)
+
+git commit -m Rails 5.0
+
+# add 'rails', '~>5.1.0'
+bundle update rails
+
+# t.void_was stopped working, t.void_before_last_save now
+
+# stylesheets are supposed to go in app/assets, but doing that triggers other errors
+# so I added `skip_pipeline: true`, which was the suggestion of the warning
+
+# .csv upgraded to error! It was worth a shot
+# oh it was just
+bundle update comma
+# thought that would have happened with rails, oh well it's fine
+
+git commit -m Rails 5.1
