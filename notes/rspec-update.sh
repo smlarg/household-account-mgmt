@@ -132,3 +132,13 @@ bundle update comma
 # thought that would have happened with rails, oh well it's fine
 
 git commit -m Rails 5.1
+
+# add 'rails', '~>5.2.0'
+bundle update rails
+
+# rails5.2 seems to drop the household_id into the transaction hash?
+# look at the git/comments to see, it's a kludge but working right now
+
+# and success became successful, whatever fine
+
+git commit -m Rails 5.2

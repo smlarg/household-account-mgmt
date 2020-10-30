@@ -8,7 +8,7 @@ describe HouseholdsController do
   describe "index" do
     it "should allow csv download" do
       get :index, :format => :csv
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 

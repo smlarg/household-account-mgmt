@@ -35,7 +35,7 @@ describe TransactionsController do
   describe "GET all_households" do
     it "should offer csv" do
       get :all_households, :format => :csv
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -78,7 +78,9 @@ describe TransactionsController do
     describe "with valid params" do
       # why are we allowing 'these' => 'params'?
       it "assigns a newly created transaction as @transaction" do
-        allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => true) }
+        #allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => true) }
+        # rails5.2 seems to drop the household_id into the transaction hash?
+        allow(Transaction).to receive(:new).with({'household_id'=>'1','these' => 'params'}) { mock_transaction(:save => true) }
         post :create, params: {:household_id => 1, :transaction => {'these' => 'params'}}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
@@ -92,13 +94,13 @@ describe TransactionsController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved transaction as @transaction" do
-        allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => false) }
+        allow(Transaction).to receive(:new).with({'household_id'=>'1','these' => 'params'}) { mock_transaction(:save => false) }
         post :create, params: {:household_id => 1, :transaction => {'these' => 'params'}}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
 
       it "re-renders the show household template" do
-        allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => false) }
+        allow(Transaction).to receive(:new).with({'household_id'=>'1','these' => 'params'}) { mock_transaction(:save => false) }
         post :create, params: {:household_id => 1, :transaction => {'these' => 'params'}}
         expect(response).to render_template('households/show')
       end
