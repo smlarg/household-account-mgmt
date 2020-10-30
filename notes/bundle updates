@@ -35,5 +35,6 @@ bundle install
 # forgot to write these down
 bundle update rails # ~>5.0.0
 bundle update pg # ~>18.0
-bundle update rails # ~>5.10
+bundle update rails # ~>5.1.0
 bundle update comma
+bundle update rails # ~>5.2.0
