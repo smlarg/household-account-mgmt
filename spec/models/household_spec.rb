@@ -40,10 +40,10 @@ describe Household do
   describe "#last_transaction" do
     subject { household.last_transaction }
 
-    let(:household) { FactoryGirl.create(:household) }
+    let(:household) { FactoryBot.create(:household) }
     context "with a couple transactions" do
-      let!(:first_transaction) { FactoryGirl.create(:purchase, household: household) }
-      let!(:second_transaction) { FactoryGirl.create(:purchase, household: household) }
+      let!(:first_transaction) { FactoryBot.create(:purchase, household: household) }
+      let!(:second_transaction) { FactoryBot.create(:purchase, household: household) }
       it { is_expected.to eq(second_transaction) }
     end
   end
@@ -53,14 +53,14 @@ describe Household do
   describe ".by_recent_activity" do
     subject { Household.by_recent_activity }
 
-    let!(:never_seen_this_household) { FactoryGirl.create(:household) }
+    let!(:never_seen_this_household) { FactoryBot.create(:household) }
 
     let!(:saw_this_household_a_bit_ago) do
-      FactoryGirl.create(:purchase).household
+      FactoryBot.create(:purchase).household
     end
 
     let!(:saw_this_household_just_now) do
-      FactoryGirl.create(:purchase).household
+      FactoryBot.create(:purchase).household
     end
 
     it { is_expected.to eq([saw_this_household_just_now, saw_this_household_a_bit_ago]) }
@@ -70,12 +70,12 @@ describe Household do
     before(:all) do
       @households = []
       @members = []
-      @households << @joe_and_sams_house = FactoryGirl.create(:household)
-      @members << FactoryGirl.create(:member, first_name: "Joseph", household: @joe_and_sams_house)
-      @members << FactoryGirl.create(:member, first_name: "Sam", household: @joe_and_sams_house)
+      @households << @joe_and_sams_house = FactoryBot.create(:household)
+      @members << FactoryBot.create(:member, first_name: "Joseph", household: @joe_and_sams_house)
+      @members << FactoryBot.create(:member, first_name: "Sam", household: @joe_and_sams_house)
 
-      @households << @samanthas_house = FactoryGirl.create(:household)
-      @members << FactoryGirl.create(:member, first_name: "Samantha", last_name: "Pierce", household: @samanthas_house)
+      @households << @samanthas_house = FactoryBot.create(:household)
+      @members << FactoryBot.create(:member, first_name: "Samantha", last_name: "Pierce", household: @samanthas_house)
     end
 
     after(:all) do
@@ -121,7 +121,7 @@ describe Household do
     end
 
     describe "searching active households" do
-      let(:inactive_member) { FactoryGirl.create(:member, :active => false) }
+      let(:inactive_member) { FactoryBot.create(:member, :active => false) }
       describe "using an inactive household's member name" do
         let(:scope) { Household.active.find_by_keywords(inactive_member.first_name) }
         it { expect(scope).to be_empty }

@@ -76,8 +76,8 @@ describe Transaction do
 
     context "when there have been some purchases" do
       before do
-        FactoryGirl.create(:purchase, :amount => 20)
-        FactoryGirl.create(:purchase, :amount => 30)
+        FactoryBot.create(:purchase, :amount => 20)
+        FactoryBot.create(:purchase, :amount => 30)
       end
 
       it { is_expected.to eq(50) }
@@ -85,8 +85,8 @@ describe Transaction do
 
     context "when there have been some purchases and some investments" do
       before do
-        FactoryGirl.create(:purchase, :amount => 20)
-        FactoryGirl.create(:investment, :amount => 30)
+        FactoryBot.create(:purchase, :amount => 20)
+        FactoryBot.create(:investment, :amount => 30)
       end
 
       it { is_expected.to eq(20) }
@@ -94,9 +94,9 @@ describe Transaction do
 
     context "when there are purchases older than a week" do
       before do
-        FactoryGirl.create(:purchase, :amount => 10, :created_at => 7.1.days.ago)
-        FactoryGirl.create(:purchase, :amount => 5, :created_at => 6.9.days.ago)
-        FactoryGirl.create(:purchase, :amount => 20, :created_at => Date.today)
+        FactoryBot.create(:purchase, :amount => 10, :created_at => 7.1.days.ago)
+        FactoryBot.create(:purchase, :amount => 5, :created_at => 6.9.days.ago)
+        FactoryBot.create(:purchase, :amount => 20, :created_at => Date.today)
       end
 
       it { is_expected.to eq(25) }

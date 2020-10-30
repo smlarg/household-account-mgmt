@@ -57,7 +57,7 @@ describe TransactionsController do
 
   describe "Pagination" do
     before(:all) do
-      31.times { FactoryGirl.create(:transaction) }
+      31.times { FactoryBot.create(:transaction) }
       # I cannot figure out why `visit` is unavailable, it seems odd
       # Oh! I see Michael removed this block as well, back in 2015. Okay well let's leave it off then.
       #visit '/transactions?page=2'

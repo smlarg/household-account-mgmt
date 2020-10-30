@@ -9,7 +9,7 @@ describe Member do
   describe "#household" do
 
     it "should belong to the assigned household if one was specified on creation" do
-      m = FactoryGirl.build(:member)
+      m = FactoryBot.build(:member)
       m.household = household
       m.save!
       expect(m.household).to eq(household)
@@ -20,14 +20,14 @@ describe Member do
     end
 
     it "should have a new household assigned on creation if one wasn't specified" do
-      m = FactoryGirl.build(:member)
+      m = FactoryBot.build(:member)
       m.save!
       expect(m.household).not_to be_nil
       expect(m.household.members).to eq([m])
     end
 
     describe "changing households" do
-      let(:m) { FactoryGirl.create(:member) }
+      let(:m) { FactoryBot.create(:member) }
 
       it "should not allow last member to leave household with outstanding balance" do
         m.household.transactions.create(amount: 5, credit: true)
@@ -50,9 +50,9 @@ describe Member do
     before(:all) do
       Member.destroy_all
       @members = []
-      @members << @joseph = FactoryGirl.create(:member, first_name: "Joseph")
-      @members << @sam = FactoryGirl.create(:member, first_name: "Sam", last_name: "St. John")
-      @members << @samantha_pierce = FactoryGirl.create(:member, first_name: "Samantha", last_name: "Pierce")
+      @members << @joseph = FactoryBot.create(:member, first_name: "Joseph")
+      @members << @sam = FactoryBot.create(:member, first_name: "Sam", last_name: "St. John")
+      @members << @samantha_pierce = FactoryBot.create(:member, first_name: "Samantha", last_name: "Pierce")
     end
 
     after(:all) do
@@ -132,8 +132,8 @@ describe Member do
 
   describe ".by_activity" do
     before(:all) do
-      @active_member = FactoryGirl.create(:member, :active => true)
-      @inactive_member = FactoryGirl.create(:member, :active => false)
+      @active_member = FactoryBot.create(:member, :active => true)
+      @inactive_member = FactoryBot.create(:member, :active => false)
     end
 
     after(:all) do

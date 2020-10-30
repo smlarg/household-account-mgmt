@@ -93,10 +93,10 @@ GEM
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    factory_girl (4.9.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     gherkin (5.1.0)
     globalid (0.4.2)
@@ -210,7 +210,7 @@ DEPENDENCIES
   devise
   devise-encryptable
   exception_notification
-  factory_girl_rails
+  factory_bot_rails
   newrelic_rpm
   pg
   protected_attributes

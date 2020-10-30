@@ -59,3 +59,13 @@ bundle exec rake
 # monthly_reports gets dropped sometime between rspec and cucumber
 bundle exec rake cumcumber
 # also drops the view; so I guess it's something about how rake runs cucumber?
+# just going with it for now
+
+# git commit -m Rails 4.2
+
+# now factoryGirl
+grep -e FactoryGirl -r . -l | grep -e ".*\.rb$" | xargs sed -i "" "s|FactoryGirl|FactoryBot|" # in os x
+# edit Gemfile
+# edit spec/factories.rb as I am yelled at to do
+
+# create config/secrets.yml, I left notes there how I kludged it together

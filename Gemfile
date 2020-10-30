@@ -48,7 +48,7 @@ gem 'exception_notification'
 group :development, :test do
   gem 'rspec-rails', '~>3.0'
   gem 'rspec-activemodel-mocks'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'capybara'
