@@ -24,3 +24,10 @@ bundle update cucumber-rails
 # looking more closely, they seem to all fail before signing in, so this may be a devise issue as well?
 # ...it's that the button appears as "Log in" to cucumber (but as "Sign in" when I go there in the browser)
 # (Oh no, I just had to restart the server; it's "Log in" now in the browser too. Helpful.)
+
+# change factory_girl_rails to factory_bot_rails, which requires
+bundle install
+
+# git commit -m FactoryBot
+# no bundle updates for Ruby 2.3.8
+# git commit -m Ruby 2.3.8

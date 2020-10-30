@@ -69,3 +69,16 @@ grep -e FactoryGirl -r . -l | grep -e ".*\.rb$" | xargs sed -i "" "s|FactoryGirl
 # edit spec/factories.rb as I am yelled at to do
 
 # create config/secrets.yml, I left notes there how I kludged it together
+
+# git commit -m FactoryBot
+
+# Can't seem to upgrade past rails 4.2 with ruby 2.2.X
+# So, 2.3.8
+RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/lib/ssl1.0/" rbenv install
+#gem install bundle
+# oops
+#gem uninstall bundler
+gem install bundler -v "<2" -N
+bundle install
+
+# git commit -m Ruby 2.3.8
