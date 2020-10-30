@@ -53,4 +53,6 @@ Foodlobby::Application.configure do
       :sender_address => %{"exception notifier" <notifier@foodlobby.heroku.com>},
       :exception_recipients => %w{michael.john.kirk@gmail.com}
     }
+  
+  config.eager_load = false
 end

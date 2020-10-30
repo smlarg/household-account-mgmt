@@ -7,3 +7,20 @@ bundle update database-cleaner
 bundle update will_paginate
 bundle update protected_attributes
 bundle update factory_girl_rails
+
+--- I forget when in the process I did these above ---
+
+--- After "Passes all tests." in git ---:
+
+  gem 'rails', '~>4.0'
+bundle update rails
+
+# there's an error with the routing, fixed with
+bundle update devise
+
+# almost all cucumber tests are failing, and this
+bundle update cucumber-rails
+# did update cucumber (and capybara), but did not fix anything
+# looking more closely, they seem to all fail before signing in, so this may be a devise issue as well?
+# ...it's that the button appears as "Log in" to cucumber (but as "Sign in" when I go there in the browser)
+# (Oh no, I just had to restart the server; it's "Log in" now in the browser too. Helpful.)

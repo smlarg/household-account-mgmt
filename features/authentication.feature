@@ -11,7 +11,7 @@ Feature: authentication
     And I am on the sign in page
     When I fill in "worker@foodlobby.org" for "Email"
     And I fill in "super-secret" for "Password"
-    And I press "Sign in"
+    And I press "Log in"
     Then I should see "Households"
 
   Scenario: view page when logged in
@@ -24,14 +24,14 @@ Feature: authentication
     And I am on the sign in page
     When I fill in "worker@foodlobby.org" for "Email"
     And I fill in "wrong password" for "Password"
-    And I press "Sign in"
+    And I press "Log in"
     Then I should see "Invalid email or password"
-    And I should see "Sign in"
+    And I should see "Log in"
 
   Scenario: redirect to login
     Given I am not logged in
     When I go to the list of households
-    Then I should see "Sign in"
+    Then I should see "Log in"
     And I should see "Email"
     And I should see "Password"
     But I should not see "Households"
@@ -40,10 +40,10 @@ Feature: authentication
     Given I am not logged in
     And I go to the list of all transactions
     Then I should not see "Listing transactions"
-    But I should see "Sign in"
+    But I should see "Log in"
     When I fill in "worker@foodlobby.org" for "Email"
     And I fill in "super-secret" for "Password"
-    And I press "Sign in"
+    And I press "Log in"
     Then I should see "All transactions"
     But I should not see "Households"
 

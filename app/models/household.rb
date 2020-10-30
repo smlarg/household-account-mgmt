@@ -35,12 +35,14 @@ class Household < ActiveRecord::Base
 
   def credit! (amount)
     transactions.create!(:credit => true, :amount => amount)
-    self.update_attribute(:balance, self.balance + amount)
+    # Going from rails 4.0 to 4.2, this started being done by transactions.create!
+    # why that would have changed, I'm at a loss
+    #self.update_attribute(:balance, self.balance + amount)
   end
 
   def debit! (amount)
     transactions.create!(:credit => false, :amount => amount)
-    self.update_attribute(:balance, self.balance - amount)
+    #self.update_attribute(:balance, self.balance - amount)
   end
 
   def last_transaction
