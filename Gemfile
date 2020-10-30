@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby "2.4.10"
+ruby "2.5.8"
 
 gem 'rails', '~>5.2.0'
 #gem 'protected_attributes'
@@ -9,7 +9,7 @@ gem 'will_paginate'
 gem 'newrelic_rpm'
 
 # for postgres
-gem 'pg', '~>0.18.0'
+gem 'pg'
 
 # for authentication
 gem 'devise'

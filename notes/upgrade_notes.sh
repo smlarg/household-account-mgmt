@@ -115,3 +115,14 @@ rbenv uninstall 2.4.10
 rbenv install
 gem install bundle
 bundle install
+
+git commit -m Ruby 2.4.10
+
+# ruby "2.5.8"
+rbenv install
+gem install bundle
+bundle install
+
+# pg, step through 1.0.0, 1.1.0, and no restriction, all seem to run
+
+git commit -m Ruby 2.5.8
