@@ -150,3 +150,8 @@ gem install bundle
 bundle install
 
 git commit -m Ruby 2.7.2
+
+# DEPRECATION WARNING: `secrets.secret_token` is deprecated in favor of `secret_key_base` and will be removed in Rails 6.0.
+# https://medium.com/@wintermeyer/goodbye-secrets-welcome-credentials-f4709d9f4698
+EDITOR=vim rails credentials:edit
+# This seems to have in fact created the file I need?

@@ -11,3 +11,6 @@ tags
 .vagrant
 
 *.sublime-workspace
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
