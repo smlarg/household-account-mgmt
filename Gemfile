@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby "2.7.2"
 
-gem 'rails', '~>5.2.0'
+gem 'rails', '~>6.0.0.0'
 #gem 'protected_attributes'
 gem 'rake'
 gem 'will_paginate'
@@ -52,7 +52,7 @@ gem 'sprockets', '~>3.0'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'rspec-rails', '~>3.0'
+  gem 'rspec-rails'
   gem 'rspec-activemodel-mocks'
   gem 'factory_bot_rails'
   gem 'cucumber-rails', :require => false

@@ -43,7 +43,7 @@ describe Transaction do
     end
 
     it "should not let you update the amount via mass assignment" do
-      @credit.update_attributes({:amount => 3.01})
+      @credit.update({:amount => 3.01})
       # model attribute will appear updated, but not actually persisted to DB, hence the reload.
       # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2132-confusing-behavior-with-attr_readonly#ticket-2132-14
       @credit.save!
@@ -51,7 +51,7 @@ describe Transaction do
     end
 
     it "should not let you update the household via mass assignment" do
-      @credit.update_attributes({:household => @household2})
+      @credit.update({:household => @household2})
       # model attribute will appear updated, but not actually persisted to DB, hence the reload.
       # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2132-confusing-behavior-with-attr_readonly#ticket-2132-14
       @credit.save!
@@ -59,7 +59,7 @@ describe Transaction do
     end
 
     it "should not let you update the credit attribute via mass assignment" do
-      @credit.update_attributes({:credit => false})
+      @credit.update({:credit => false})
       # model attribute will appear updated, but not actually persisted to DB, hence the reload.
       # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/2132-confusing-behavior-with-attr_readonly#ticket-2132-14
       @credit.save!

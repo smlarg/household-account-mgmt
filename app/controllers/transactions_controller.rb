@@ -78,7 +78,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       #if @transaction.update_attributes(params[:transaction])
-      if @transaction.update_attributes(who_knows)
+      if @transaction.update(who_knows)
         format.html { redirect_to(household_transaction_url(@household, @transaction), :notice => 'Household transaction was successfully updated.') }
         format.xml  { head :ok }
       else

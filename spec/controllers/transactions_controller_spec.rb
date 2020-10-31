@@ -80,7 +80,8 @@ describe TransactionsController do
       it "assigns a newly created transaction as @transaction" do
         #allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => true) }
         # rails5.2 seems to drop the household_id into the transaction hash?
-        allow(Transaction).to receive(:new).with({'household_id'=>'1','these' => 'params'}) { mock_transaction(:save => true) }
+        # Fixed in rails6 (though it might have been an issue with having the wrong rspec version)
+        allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => true) }
         post :create, params: {:household_id => 1, :transaction => {'these' => 'params'}}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
@@ -94,13 +95,13 @@ describe TransactionsController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved transaction as @transaction" do
-        allow(Transaction).to receive(:new).with({'household_id'=>'1','these' => 'params'}) { mock_transaction(:save => false) }
+        allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => false) }
         post :create, params: {:household_id => 1, :transaction => {'these' => 'params'}}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
 
       it "re-renders the show household template" do
-        allow(Transaction).to receive(:new).with({'household_id'=>'1','these' => 'params'}) { mock_transaction(:save => false) }
+        allow(Transaction).to receive(:new).with({'these' => 'params'}) { mock_transaction(:save => false) }
         post :create, params: {:household_id => 1, :transaction => {'these' => 'params'}}
         expect(response).to render_template('households/show')
       end
@@ -112,25 +113,26 @@ describe TransactionsController do
 
     describe "with valid params" do
       # this block is failing and I think for now I don't care why
-#      it "updates the requested transaction" do
-#        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction }
+      # AND FIXED!
+      it "updates the requested transaction" do
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction }
 #        # how to do msg expectations with chained methods like this? instead of the above stub
 #        # Transaction.should_receive(:for_household).with("1").should_receive(:find).with("37") { mock_transaction }
 #        # Something like this? Is that even useful?
 #        # Transaction.should_receive(:for_household).with("1") { MockHouseholdScope }
 #        # MockHouseholdScope.should_receive(:find).with("37")) { mock_transaction }
-#        expect(mock_transaction).to receive(:update_attributes).with({'these' => 'params'})
-#        put :update, {:id => "37", :household_id => 1, :transaction => {'these' => 'params'}}
-#      end
+        expect(mock_transaction).to receive(:update).with({'these' => 'params'})
+        put :update, params: {:id => "37", :household_id => 1, :transaction => {'these' => 'params'}}
+      end
 
       it "assigns the requested transaction as @transaction" do
-        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => true) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update => true) }
         put :update, params: {:id => "1", :household_id => 1}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
 
       it "redirects to the households transactions" do
-        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => true, :household_id => 2) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update => true, :household_id => 2) }
         put :update, params: {:id => "1", :household_id => 1}
         expect(response).to redirect_to(household_transaction_url(:household_id => 1, :id => mock_transaction))
       end
@@ -138,13 +140,13 @@ describe TransactionsController do
 
     describe "with invalid params" do
       it "assigns the transaction as @transaction" do
-        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => false) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update=> false) }
         put :update, params: {:id => "1", :household_id => 1}
         expect(assigns(:transaction)).to be(mock_transaction)
       end
 
       it "re-renders the 'edit' template" do
-        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update_attributes => false) }
+        allow(Transaction).to receive_message_chain(:for_household, :find) { mock_transaction(:update => false) }
         put :update, params: {:id => "1", :household_id => 1}
         expect(response).to render_template("edit")
       end

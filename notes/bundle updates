@@ -52,3 +52,11 @@ bundle update pg # no restrictions
 bundle update
 
 # git commit -m bundle update
+
+# git commit -m Ruby 2.6.6
+# git commit -m Ruby 2.7.2
+# git commit -m secret_key_base
+
+bundle update 'rails' #'~>6.0.0.0'
+#gem 'rspec-rails' # that is removing '~>3.0'
+bundle update

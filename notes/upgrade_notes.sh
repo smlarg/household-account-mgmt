@@ -154,4 +154,16 @@ git commit -m Ruby 2.7.2
 # DEPRECATION WARNING: `secrets.secret_token` is deprecated in favor of `secret_key_base` and will be removed in Rails 6.0.
 # https://medium.com/@wintermeyer/goodbye-secrets-welcome-credentials-f4709d9f4698
 EDITOR=vim rails credentials:edit
-# This seems to have in fact created the file I need?
+# Just this seems to have in fact created the file I need?
+
+git commit -m secret_key_base
+
+#gem 'rails', '~>6.0.0.0'
+bundle update rails
+#gem 'rspec-rails'
+bundle update
+
+# update_attributes became update
+# (and i see the tests are only catching that in transaction_contoller, because the other controllers don't have many tests
+# (so writing tests for those might be a next step)
+
