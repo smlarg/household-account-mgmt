@@ -1,9 +1,9 @@
 When /^I deposit \$(\d+) into the household's account$/ do |amount|
-  @household.credit!(BigDecimal.new(amount))
+  @household.credit!(BigDecimal(amount))
 end
 
 When /^that household spends \$(\d+)$/ do |amount|
-  @household.debit!(BigDecimal.new(amount))
+  @household.debit!(BigDecimal(amount))
 end
 
 When /^I edit the last transaction$/ do
@@ -17,13 +17,13 @@ Given /^that household spent \$(\d+) over a week ago$/ do |amount|
 end
 
 Given /^there was a "\$([^"]*)" purchase on "([^"]*)"$/ do |amount, date|
-  amount = BigDecimal.new(amount)
+  amount = BigDecimal(amount)
   date = Date.parse(date)
   Transaction.create!(:amount => amount, :created_at => date, :credit => false, :household => some_household)
 end
 
 Given /^there was a "\$([^"]*)" investment on "([^"]*)"$/ do |amount, date|
-  amount = BigDecimal.new(amount)
+  amount = BigDecimal(amount)
   date = Date.parse(date)
   Transaction.create!(:amount => amount, :created_at => date, :credit => true, :household => some_household)
 end

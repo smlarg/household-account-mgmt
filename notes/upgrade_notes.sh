@@ -132,3 +132,12 @@ git commit -m Ruby 2.5.8
 bundle update
 
 git commit -m bundle update
+
+# ruby "2.6.6"
+rbenv install
+gem install bundle
+bundle install
+
+# BigDecimal.new -> BigDecimal, sure np
+
+git commit -m Ruby 2.6.6

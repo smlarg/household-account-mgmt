@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby "2.5.8"
+ruby "2.6.6"
 
 gem 'rails', '~>5.2.0'
 #gem 'protected_attributes'

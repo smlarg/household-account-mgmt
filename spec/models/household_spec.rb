@@ -12,12 +12,12 @@ describe Household do
 
     it "should add the amount of credit to balance" do
       balance = @household.balance
-      @household.credit!(BigDecimal.new("5"))
+      @household.credit!(BigDecimal("5"))
       expect(@household.balance).to eq(balance + 5)
     end
 
     it "should not allow credits <= 0" do
-      expect { @household.credit!(BigDecimal.new("-5")) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { @household.credit!(BigDecimal("-5")) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -28,12 +28,12 @@ describe Household do
 
     it "should subtract the amount of debit to balance" do
       balance = @household.balance
-      @household.debit!(BigDecimal.new("5"))
+      @household.debit!(BigDecimal("5"))
       expect(@household.balance).to eq(balance - 5)
     end
 
     it "should not allow debits <= 0" do
-      expect { @household.debit!(BigDecimal.new("-5")) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { @household.debit!(BigDecimal("-5")) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
