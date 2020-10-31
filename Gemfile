@@ -33,6 +33,13 @@ gem 'rails-controller-testing'
 # Hold sprockets down for the time being
 gem 'sprockets', '~>3.0'
 
+# rails app:update demands this (updating to 6.0.3.4, from all the way back)
+# (It says check https://guides.rubyonrails.org/upgrading_ruby_on_rails.html, but the string 'listen' does not appear on that page...)
+gem 'listen'
+
+# I've seen this around, and the server seems to be slow to...serve, so see if it does any good
+gem 'bootsnap'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

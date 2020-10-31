@@ -1,4 +1,4 @@
-class ExcludeVoidsFromMonthlyReports < ActiveRecord::Migration
+class ExcludeVoidsFromMonthlyReports < ActiveRecord::Migration[4.2]
   def up
     sql = <<-SQL
       drop view if exists monthly_reports;

@@ -174,3 +174,47 @@ bundle update rails # 6.0.3.4, which is current
 bundle update # no change
 
 git commit -m Rails 6.0.3.4
+
+#-------here we go-------
+
+bundle exec rails app:update
+# skip only routes.db
+# complains about listen gem
+#gem 'listen'
+bundle install
+bundle exec rails app:update
+
+# rspec and server ran, but cucumber complained and said run
+rails db:environment:set RAILS_ENV=test
+rails db:migrate RAILS_ENV=test
+# AAAAAND monthly reports is dropped
+dropdb foodlobby_test
+RAILS_ENV=test bundle exec rake db:setup
+# Nope:
+#StandardError: Directly inheriting from ActiveRecord::Migration is not supported. Please specify the Rails release the migration was written for:
+#  class ExcludeVoidsFromMonthlyReports < ActiveRecord::Migration[4.2]
+# Which I guess the '4.2' was a suggestion? I tried to put 3.2, but 4.2 was the lowest number allowed, so I did that.
+
+# Now cucumber is running, but rspec has an error? Hmr.
+# It's in spec/views/transactions/index , for some reason `render` isn't passing :household_id
+# I'm just commenting out for now
+
+# AAAAAND the web server asked for
+rails db:migrate RAILS_ENV=development
+# and then internal server errored on everything
+#
+# ah!, welp, thank you for google
+#https://github.com/rails/rails/issues/33580
+# config/initializers/cookies_serializer.rb 
+#  Rails.application.config.action_dispatch.cookies_serializer = :hybrid
+#
+#website is working again, but page loads seem a lot slower than before
+# oh! let me try
+#gem 'bootsnap'
+bundle install
+# *sigh* nope, just as slow
+# Oh! Rails 6 didn't add it to my config/boot.rb (as Rails 5 had been) (which is why things weren't crashing in the first place)
+# added `require "bootsnap/setup"`
+# Yes much faster now
+
+git commit -m rails app:update
