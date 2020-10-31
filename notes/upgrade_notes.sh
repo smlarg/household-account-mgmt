@@ -141,3 +141,12 @@ bundle install
 # BigDecimal.new -> BigDecimal, sure np
 
 git commit -m Ruby 2.6.6
+
+# ruby "2.7.2"
+# ha! Ahead of rbenv!
+git -C /home/vagrant/.rbenv/plugins/ruby-build pull
+rbenv install
+gem install bundle
+bundle install
+
+git commit -m Ruby 2.7.2
