@@ -167,3 +167,10 @@ bundle update
 # (and i see the tests are only catching that in transaction_contoller, because the other controllers don't have many tests
 # (so writing tests for those might be a next step)
 
+git commit -m Rails 6.0.0
+
+#gem 'rails', '~>6.0.0'
+bundle update rails # 6.0.3.4, which is current
+bundle update # no change
+
+git commit -m Rails 6.0.3.4

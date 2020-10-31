@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby "2.7.2"
 
-gem 'rails', '~>6.0.0.0'
+gem 'rails', '~>6.0.0'
 #gem 'protected_attributes'
 gem 'rake'
 gem 'will_paginate'

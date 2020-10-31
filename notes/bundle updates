@@ -60,3 +60,11 @@ bundle update
 bundle update 'rails' #'~>6.0.0.0'
 #gem 'rspec-rails' # that is removing '~>3.0'
 bundle update
+
+# git commit -m Rails 6.0.0
+
+#gem 'rails', '~>6.0.0'
+bundle update rails # 6.0.3.4, which is current
+bundle update # no change
+
+# git commit -m Rails 6.0.3.4
