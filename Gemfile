@@ -30,9 +30,6 @@ gem 'exception_notification'
 # After upgrading to 5.0 I was told to put this in, for assigns
 gem 'rails-controller-testing'
 
-# Hold sprockets down for the time being
-gem 'sprockets', '~>3.0'
-
 # rails app:update demands this (updating to 6.0.3.4, from all the way back)
 # (It says check https://guides.rubyonrails.org/upgrading_ruby_on_rails.html, but the string 'listen' does not appear on that page...)
 gem 'listen'
