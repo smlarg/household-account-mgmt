@@ -126,3 +126,9 @@ bundle install
 # pg, step through 1.0.0, 1.1.0, and no restriction, all seem to run
 
 git commit -m Ruby 2.5.8
+
+# tried bundle update, no good, running through every gem the problem appears to be sprockets, so
+#gem 'sprockets', '~>3.0'
+bundle update
+
+git commit -m bundle update

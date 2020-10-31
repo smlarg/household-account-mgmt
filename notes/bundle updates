@@ -38,3 +38,17 @@ bundle update pg # ~>18.0
 bundle update rails # ~>5.1.0
 bundle update comma
 bundle update rails # ~>5.2.0
+
+# ruby to 2.5.8, then
+bundle update pg # no restrictions
+
+# git commit -m Ruby 2.5.8
+
+#bundle update
+# No
+
+#went through every gem which was updated, and the only problem was from sprockets, so
+#gem 'sprockets', '~>3.0'
+bundle update
+
+# git commit -m bundle update
