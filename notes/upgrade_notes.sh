@@ -218,3 +218,26 @@ bundle install
 # Yes much faster now
 
 git commit -m rails app:update
+
+#------- stop rake from dropping view -------
+# c.f. https://stackoverflow.com/questions/31197502/rails-tests-trying-to-delete-sql-views
+# also https://edgeguides.rubyonrails.org/active_record_migrations.html#types-of-schema-dumps
+# I hope I'm remembering the order I did this in correctly
+
+# add this line to config/application.db:
+config.active_record.schema_format = :sql
+
+bundle exec rails db:migrate
+# that creates db/structure.sql
+# unfortunately that file seems to have a bug,
+# the second line about plpgsql (line 23 at the moment), which is trying to add a useless comment to the extension,
+# isn't able to execute because
+#psql:/vagrant/db/structure.sql:23: ERROR:  must be owner of extension plpgsql
+# Googling seems to only find a handful of people saying "yeup, that's annoying"
+# So just comment that line out (which we'll have to do after every db:migrate I assume)
+
+# But at least then, just
+dropdb foodlobby_test
+RAILS_ENV=test bundle exec rake db:setup
+
+# and voila!
